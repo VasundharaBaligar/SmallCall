@@ -25,5 +25,16 @@ LoRA SFT of **Qwen2.5-1.5B-Instruct** so it knows **when not to call a tool**, b
 ## Limits
 One SFT round, no RLHF/GRPO. A gpt-oss-120b (Groq) comparison stopped at 78/200 (rate limit) and is excluded.
 
+## Run on Colab
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/VasundharaBaligar/SmallCall/blob/main/SmallCall_Stage1_Baseline_v2%20(1).ipynb)
+
+1. Open the notebook with the badge above, then **Runtime → Change runtime type → GPU** (A100/L4 best, T4 works).
+2. Add **Secrets** (key icon, left sidebar), enabling notebook access for each:
+   - `HF_TOKEN` – required (the xLAM dataset is gated; accept its terms on Hugging Face first).
+   - `GROQ_API_KEY` – optional, only for the gpt-oss-120b baseline.
+3. Run cells top to bottom. Part 1 builds the data and baselines; Part 2 trains and evaluates.
+4. Everything saves to `MyDrive/smallcall/` (data, results, adapters). If Colab disconnects, rerun the cells and finished work is skipped; training resumes from the last epoch.
+5. If you hit a CUDA out-of-memory error, use the smaller batch cell (batch 4, accumulation 4); if `peft` fails on `torchao`, run the uninstall cell.
+
 ## Files
-`SmallCall_Stage1_Baseline_v2 (1).ipynb` (Colab, needs `HF_TOKEN`) · `SmallCall_Project_Details.md` (full write-up)
+`SmallCall_Stage1_Baseline_v2 (1).ipynb` · `SmallCall_Project_Details.md` (full write-up)
